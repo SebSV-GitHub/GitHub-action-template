@@ -1,5 +1,5 @@
 import * as core from "@actions/core";
-import greet from "./utils/greet.js";
+import greet from "@/utils/greet.js";
 
 try {
 	const name = core.getInput("who-to-greet");
