@@ -1,8 +1,8 @@
-import greet from "@/core/index.js";
+import greet from "@/utils/greet.js";
 
-describe("Index", () => {
-	test("True", () => {
-		const string_ = greet("World");
-		expect(true).toBe(true);
+describe("Test", () => {
+	test("Greet", () => {
+		const message = greet("World");
+		expect(message).toBe("Hello World!");
 	});
 });

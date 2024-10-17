@@ -1,17 +1,17 @@
-# TypeScript Template Repository 🚀
+# GitHub Action Template 🚀
 
-A ready-to-use TypeScript project template with modern tooling to streamline your development workflow. Use this template on GitHub to kickstart a new project with ease.
+A TypeScript-based GitHub Action template to streamline the creation of reusable, high-quality GitHub Actions. This template includes a fast Node.js + TypeScript runtime, code quality tooling, and test automation for reliable and maintainable workflows.
 
 ## 🌟 Features
 
-- **TypeScript** with TSX, a fast `Node.js + TypeScript` runtime.
-- **ECMAScript Modules (ESM)** for modern module usage.
-- **XO** for strict linting and maintaining code quality.
+- **TypeScript with TSX**, a fast Node.js + TypeScript runtime for building GitHub Actions.
+- **ECMAScript Modules (ESM)** for a modular and modern JavaScript environment.
+- **XO** for strict linting and code quality.
 - **Prettier** for automatic code formatting.
-- **Jest** for unit and integration testing.
-- **TypeScript Path Aliases** for easier imports and cleaner code structure.
-- **Git Hooks** managed by **Husky** and **lint-staged** for seamless pre-commit and pre-push checks.
-- **EditorConfig** to keep editor settings consistent across various IDEs.
+- **Jest** for unit and integration testing of the Action logic.
+- **TypeScript Path Aliases** for cleaner imports.
+- **Git Hooks** managed by **Husky** and **lint-staged** for quality checks on every commit.
+- **EditorConfig** to maintain consistent editor settings across IDEs.
 
 ## 🚀 Getting Started
 
@@ -45,7 +45,7 @@ A ready-to-use TypeScript project template with modern tooling to streamline you
 ## 📜 Scripts
 
 - **`npm start`**: Starts the development server using `tsx` for fast TypeScript execution.
-- **`npm run build`**: Builds the project for production.
+- **`npm run build`**: Compiles the action’s TypeScript code to JavaScript in the `dist` folder, ready for production.
 - **`npm run lint`**: Runs the XO linter on all files.
 - **`npm run format`**: Formats code using Prettier.
 - **`npm run test`**: Runs tests using Jest.
@@ -53,58 +53,75 @@ A ready-to-use TypeScript project template with modern tooling to streamline you
 
 ## 🛠️ Tools
 
-### TypeScript Path Aliases
+### TypeScript with TSX
 
-TypeScript path aliases help keep import statements cleaner, making it easier to manage large projects with multiple modules. This template includes an example path alias setup.
+This template uses the `tsx` runtime, providing a fast and seamless Node.js + TypeScript experience. The `tsx` package allows for easy TypeScript execution, similar to using `node` directly.
 
-1. **Configure Paths**: In `tsconfig.json`, define aliases within the `compilerOptions` field:
+### Jest for Testing
 
-   ```json
-   {
-     "compilerOptions": {
-       "baseUrl": ".",
-       "paths": {
-         "@components/*": ["src/components/*"],
-         "@utils/*": ["src/utils/*"]
-       }
-     }
-   }
-   ```
-
-2. **Using Aliases**: Once configured, use the paths in your import statements, like so:
-
-   ```typescript
-   import MyComponent from "@components/MyComponent";
-   import { myUtilityFunction } from "@utils/helpers";
-   ```
-
-This setup allows for absolute imports and improves code readability by avoiding complex relative paths.
-
-### TypeScript with `tsx`
-
-This template uses the `tsx` runtime, providing a zero-config, lightning-fast TypeScript environment. The `tsx` package allows for easy TypeScript execution, similar to using `node` directly.
-
-### Jest
-
-- **Jest** is configured to run unit and integration tests. Place your tests in a `tests` folder or follow Jest's default structure by naming test files with `.test.ts` or `.spec.ts`.
+- **Jest** enables testing of the Action’s core logic, ensuring it performs as expected.
+- Add test files with `.test.ts` or `.spec.ts` extensions in the `tests` folder to keep them organized.
 
 ### XO & Prettier
 
-- **XO** enforces a strict code style to keep your code clean and maintainable.
-- **Prettier** works alongside XO to auto-format code, helping maintain a consistent style across the project.
+- **XO** enforces a strict code style, keeping your code clean and maintainable.
+- **Prettier** works alongside XO to auto-format code, ensuring a consistent style.
+
+### TypeScript Path Aliases
+
+Use path aliases for cleaner imports. Configure aliases in `tsconfig.json`:
+
+```json
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@src/*": ["src/*"]
+    }
+  }
+}
+```
+
+Then, import modules like so:
+
+```typescript
+import myFunction from "@src/myFunction";
+```
 
 ### Git Hooks (Husky + lint-staged)
 
-- **Husky** manages Git hooks to automate checks before commits.
-- **lint-staged** runs linting and formatting on staged files, ensuring only committed code is checked.
+- **Husky** manages Git hooks to automate linting and formatting checks before commits.
+- **lint-staged** ensures only staged files are linted and formatted, minimizing disruption.
 
 ### EditorConfig
 
-The included `.editorconfig` file ensures consistent editor behavior across different IDEs.
+The included `.editorconfig` file maintains consistent editor behavior across different IDEs.
 
 ## 📚 Usage
 
-To create a new repository from this template, select it in the **GitHub repository creation** options and hit **Create Repository**. All configurations are ready to use out of the box!
+After creating the repository, you can update the GitHub Action YAML file in `.github/workflows/your-action.yml` to define the action’s workflow. The action's entry point should be the `dist/index.js` file, generated by the build process.
+
+### Sample Workflow
+
+Here’s a sample configuration to use this Action in a workflow:
+
+```yaml
+name: Sample GitHub Action
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  run-action:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ./
+        with:
+          example_input: "Hello, World!"
+```
 
 ## 🧪 Running Tests
 
